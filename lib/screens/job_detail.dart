@@ -11,7 +11,12 @@ class JobDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("${job.companyNm}")),
       body: Container(
-        child: Text("${job.emplmntTitle}"),
+        child: Column(
+          children: [
+            Text("${job.emplmntTitle}"),
+            Text("${job.workplcBasisAddr}")
+          ],
+        ),
       ),
     );
   }
