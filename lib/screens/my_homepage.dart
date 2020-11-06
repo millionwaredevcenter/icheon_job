@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:icheon_job/models/emp_job.dart';
 import 'package:icheon_job/models/json_res.dart';
 import 'package:icheon_job/screens/job_list.dart';
+import 'package:icheon_job/screens/mw_intro.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -51,10 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset("assets/logo_bi.png", 
-        fit: BoxFit.contain,
-        ),
-      ),
+          title: Image.asset(
+            "assets/logo_bi.png",
+            fit: BoxFit.contain,
+          ),
+          actions: [
+            IconButton(
+                icon: new Icon(
+                  Icons.question_answer,
+                  color: Colors.yellow,
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MwIntro()));
+                })
+          ]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-       // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
