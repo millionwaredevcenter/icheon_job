@@ -20,10 +20,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   List<EmpJob> list = [];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
   }
 
   void getData() async {
@@ -50,31 +51,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Image.asset("assets/logo_bi.png", 
+        fit: BoxFit.contain,
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              '아래로 당겨 새로고침',
             ),
             Expanded(
               child: ListView.builder(
-                itemExtent: 100.0,
-                itemCount: list.length,
-                itemBuilder: (context, index) =>
-                JobList(context, list[index], index)
-              ),
+                  itemExtent: 100.0,
+                  itemCount: list.length,
+                  itemBuilder: (context, index) =>
+                      JobList(context, list[index], index)),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getData,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
