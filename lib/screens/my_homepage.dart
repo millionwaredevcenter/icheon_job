@@ -22,7 +22,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   List<EmpJob> list = [];
 
   @override
@@ -47,13 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
     var wdata = JsonRes.fromJSON(json);
     var items = wdata.response[1]["row"];
 
-    print("getData");
     List<EmpJob> inlist = [];
     for (var i = 0; i < items.length; i++) {
       final item = items[i];
       inlist.add(EmpJob.formJson(item));
     }
-    print(inlist);
+
     setState(() {
       list = inlist;
     });
