@@ -26,28 +26,20 @@ class _MyHomePageState extends State<MyHomePage> {
   List<EmpJob> list = [];
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    List<EmpJob> inlist = await getData();
-    print(inlist);
-    setState(() {
-      list = inlist;
-    });
+    getData();
   }
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  void onRefresh() async {
-    List<EmpJob> inlist = await getData();
-
-    setState(() {
-      list = inlist;
-    });
+  void onRefresh() {
+    getData();
     _refreshController.refreshCompleted();
   }
 
-  Future<List<EmpJob>> getData() async {
+  void getData() async {
     var url =
         "${DotEnv().env['DATAGG_API_URL']}/EmplmntInfoStus?KEY=${DotEnv().env['DATAGG_API_KEY']}&type=json&SIGUN_CD=41500";
     var response = await http.get(url);
@@ -55,13 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
     var wdata = JsonRes.fromJSON(json);
     var items = wdata.response[1]["row"];
 
+    print("getData");
+    List<EmpJob> inlist = [];
     for (var i = 0; i < items.length; i++) {
       final item = items[i];
-      list.add(EmpJob.formJson(item));
+      inlist.add(EmpJob.formJson(item));
     }
-
-    return list;
-    //print(inlist);
+    print(inlist);
+    setState(() {
+      list = inlist;
+    });
   }
 
   @override
@@ -87,48 +82,52 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              child: Text(
-                '아래로 당겨 새로고침',
-              ),
+            Text(
+              '아래로 당겨 새로고침',
             ),
-            SmartRefresher(
-              enablePullDown: true,
-              enablePullUp: true,
-              header: WaterDropHeader(),
-              footer: CustomFooter(
-                builder: (BuildContext context, LoadStatus mode) {
-                  Widget body;
-                  if (mode == LoadStatus.idle) {
-                    body = Text("pull up load");
-                  } else if (mode == LoadStatus.loading) {
-                    body = CupertinoActivityIndicator();
-                  } else if (mode == LoadStatus.failed) {
-                    body = Text("Load Failed!Click retry!");
-                  } else if (mode == LoadStatus.canLoading) {
-                    body = Text("release to load more");
-                  } else {
-                    body = Text("No more Data");
-                  }
-                  return Container(
-                    height: 55.0,
-                    child: Center(child: body),
-                  );
-                },
-              ),
-              controller: _refreshController,
-              onLoading: onRefresh,
-              onRefresh: onRefresh,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 1.2,
-                width: MediaQuery.of(context).size.width * 3.4,
-                child: ListView.builder(
-                    itemExtent: 100.0,
-                    itemCount: list.length,
-                    itemBuilder: (context, index) =>
-                        JobList(context, list[index], index)),
-              ),
-            ),
+            list.length == 0
+                ? Expanded(
+                    child: Text("waiting"),
+                  )
+                : Expanded(
+                    child: SmartRefresher(
+                      enablePullDown: true,
+                      enablePullUp: true,
+                      header: WaterDropHeader(),
+                      footer: CustomFooter(
+                        builder: (BuildContext context, LoadStatus mode) {
+                          Widget body;
+                          if (mode == LoadStatus.idle) {
+                            body = Text("pull up load");
+                          } else if (mode == LoadStatus.loading) {
+                            body = CupertinoActivityIndicator();
+                          } else if (mode == LoadStatus.failed) {
+                            body = Text("Load Failed!Click retry!");
+                          } else if (mode == LoadStatus.canLoading) {
+                            body = Text("release to load more");
+                          } else {
+                            body = Text("No more Data");
+                          }
+                          return Container(
+                            height: 55.0,
+                            child: Center(child: body),
+                          );
+                        },
+                      ),
+                      controller: _refreshController,
+                      onLoading: onRefresh,
+                      onRefresh: onRefresh,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 1.2,
+                        width: MediaQuery.of(context).size.width * 3.4,
+                        child: ListView.builder(
+                            itemExtent: 100.0,
+                            itemCount: list.length == null ? 0 : list.length,
+                            itemBuilder: (context, index) =>
+                                JobList(context, list[index], index)),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
