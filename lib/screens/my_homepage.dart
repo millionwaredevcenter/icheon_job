@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:icheon_job/models/emp_job.dart';
 import 'package:icheon_job/models/json_res.dart';
+import 'package:icheon_job/screens/job_card.dart';
 import 'package:icheon_job/screens/job_list.dart';
 import 'package:icheon_job/screens/mw_intro.dart';
 import 'package:icheon_job/size_config.dart';
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             itemExtent: 100.0,
                             itemCount: list.length == null ? 0 : list.length,
                             itemBuilder: (context, index) =>
-                                JobList(context, list[index], index)),
+                                JobCard(context, list[index], index)),
                       ),
                     ),
                   ),
