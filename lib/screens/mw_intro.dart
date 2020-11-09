@@ -20,18 +20,18 @@ class MwIntro extends StatelessWidget {
                     children: [
                       Image.asset(
                         "assets/lake-tekapo.jpg",
-                        height: 300,
+                        height: getProportionateScreenWidth(300),
                         fit: BoxFit.cover,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 70,
+                            height: getProportionateScreenWidth(70),
                           ),
                           Text("Millionware",
                               style: TextStyle(
-                                fontSize: 58,
+                                fontSize: getProportionateScreenWidth(58),
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               )),
