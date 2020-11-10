@@ -9,6 +9,8 @@ Widget JobCard(BuildContext context, EmpJob card, int index) {
   var company = card.companyNm;
   var jobno = card.joboffrCertfiyNo;
   var address = card.workplcBasisAddr;
+  var wageform = card.wageForm;
+  var salary = card.salaryInfo;
 
   return InkWell(
     onTap: () {
@@ -39,10 +41,8 @@ Widget JobCard(BuildContext context, EmpJob card, int index) {
             Spacer(),
             Text('${title}'),
             Spacer(),
-            Text(
-              '워크넷 구직번호 : ${jobno}',
-              style: TextStyle(fontSize: 12),
-            ),
+            Text('[${wageform}] ${salary}'),
+            Spacer(),
             Spacer(),
             Text(
               '${address}',
