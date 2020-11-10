@@ -24,7 +24,7 @@ Widget JobCard(BuildContext context, EmpJob card, int index) {
       Container(
         width: MediaQuery.of(context).size.width * 0.95,
         margin: EdgeInsets.all(5),
-        padding: EdgeInsets.all(7),
+        padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(),
