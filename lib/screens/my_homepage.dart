@@ -35,9 +35,20 @@ class _MyHomePageState extends State<MyHomePage> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  void onRefresh() {
+  void onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    print("pull refresh");
     getData();
     _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+
+    if (mounted) setState(() {});
+    _refreshController.loadComplete();
   }
 
   void getData() async {
@@ -79,59 +90,44 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(builder: (context) => MwIntro()));
                 })
           ]),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '아래로 당겨 새로고침',
-            ),
-            list.length == 0
-                ? Expanded(
-                    child: Text("waiting"),
-                  )
-                : Expanded(
-                    child: SmartRefresher(
-                      enablePullDown: true,
-                      enablePullUp: true,
-                      header: WaterDropHeader(),
-                      footer: CustomFooter(
-                        builder: (BuildContext context, LoadStatus mode) {
-                          Widget body;
-                          if (mode == LoadStatus.idle) {
-                            body = Text("pull up load");
-                          } else if (mode == LoadStatus.loading) {
-                            body = CupertinoActivityIndicator();
-                          } else if (mode == LoadStatus.failed) {
-                            body = Text("Load Failed!Click retry!");
-                          } else if (mode == LoadStatus.canLoading) {
-                            body = Text("release to load more");
-                          } else {
-                            body = Text("No more Data");
-                          }
-                          return Container(
-                            height: 55.0,
-                            child: Center(child: body),
-                          );
-                        },
-                      ),
-                      controller: _refreshController,
-                      onLoading: onRefresh,
-                      onRefresh: onRefresh,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 1.2,
-                        width: MediaQuery.of(context).size.width * 3.4,
-                        child: ListView.builder(
-                            itemExtent: 100.0,
-                            itemCount: list.length == null ? 0 : list.length,
-                            itemBuilder: (context, index) =>
-                                JobCard(context, list[index], index)),
-                      ),
-                    ),
-                  ),
-          ],
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle) {
+              body = Text("pull up load");
+            } else if (mode == LoadStatus.loading) {
+              body = CupertinoActivityIndicator();
+            } else if (mode == LoadStatus.failed) {
+              body = Text("Load Failed!Click retry!");
+            } else if (mode == LoadStatus.canLoading) {
+              body = Text("release to load more");
+            } else {
+              body = Text("No more Data");
+            }
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onLoading: _onLoading,
+        onRefresh: onRefresh,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 1.2,
+          width: MediaQuery.of(context).size.width * 3.4,
+          child: ListView.builder(
+              itemExtent: 100.0,
+              itemCount: list.length == null ? 0 : list.length,
+              itemBuilder: (context, index) =>
+                  JobCard(context, list[index], index)),
         ),
       ),
+
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

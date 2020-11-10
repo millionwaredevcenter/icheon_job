@@ -21,10 +21,12 @@ Widget JobCard(BuildContext context, EmpJob card, int index) {
     },
     child: SizedBox(
         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Row(children: [
           Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(5),
+            width: MediaQuery.of(context).size.width * 0.95,
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(),
