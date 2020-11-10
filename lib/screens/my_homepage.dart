@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:icheon_job/models/emp_job.dart';
 import 'package:icheon_job/models/json_res.dart';
 import 'package:icheon_job/screens/job_card.dart';
-import 'package:icheon_job/screens/job_list.dart';
 import 'package:icheon_job/screens/mw_intro.dart';
 import 'package:icheon_job/size_config.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

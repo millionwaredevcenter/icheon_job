@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icheon_job/models/emp_job.dart';
-import 'package:icheon_job/screens/job_web_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobDetail extends StatelessWidget {
   final EmpJob job;
@@ -34,7 +34,6 @@ class JobDetail extends StatelessWidget {
               Text("경력 : ${job.careerInfo}"),
               Text("마감일자 : ${job.closDeInfo}"),
               Text("정보제공출처명 : ${job.infoProvsnOrifinDivNm}"),
-              Text("워크넷 채용정보 URL : ${job.emplmntInfoUrl}"),
               Text("근무지 우편주소 : ${job.workplcZipCd}"),
               Text("근무지 기본주소 : ${job.workplcBasisAddr}"),
               Text("고용형태코드 : ${job.emplymtFormCd}"),
@@ -42,7 +41,19 @@ class JobDetail extends StatelessWidget {
               Text("직종코드 : ${job.jobclassDivCd}"),
               Text("직종명 : ${job.jobClassDivNm}"),
               Text("최종수정일자 : ${job.lastUpdDeInfo}"),
-              Expanded(child: JobWebView())
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: RaisedButton(
+                    child: Text("워크넷 채용공고 바로가기"),
+                    onPressed: () async {
+                      var url = job.emplmntInfoUrl;
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    }),
+              )
             ],
           ),
         ),
