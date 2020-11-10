@@ -19,42 +19,38 @@ Widget JobCard(BuildContext context, EmpJob card, int index) {
                     job: card,
                   )));
     },
-    child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Row(children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.95,
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(7),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                boxShadow: [kDefualtShadow]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${company}',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                Spacer(),
-                Text('${title}'),
-                Spacer(),
-                Text(
-                  '워크넷 구직번호 : ${jobno}',
-                  style: TextStyle(fontSize: 12),
-                ),
-                Spacer(),
-                Text(
-                  '${address}',
-                  style: TextStyle(fontSize: 12),
-                )
-              ],
+    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+        width: MediaQuery.of(context).size.width * 0.95,
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(7),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [kDefualtShadow]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${company}',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-          ),
-          VerticalSpacing()
-        ])),
+            Spacer(),
+            Text('${title}'),
+            Spacer(),
+            Text(
+              '워크넷 구직번호 : ${jobno}',
+              style: TextStyle(fontSize: 12),
+            ),
+            Spacer(),
+            Text(
+              '${address}',
+              style: TextStyle(fontSize: 12),
+            )
+          ],
+        ),
+      ),
+    ]),
   );
 }
