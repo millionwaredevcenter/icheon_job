@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
-
+    print("onLoading ");
     if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final item = items[i];
       inlist.add(EmpJob.formJson(item));
     }
-
+    print("getData call " + inlist.length.toString());
     setState(() {
       list = inlist;
     });
@@ -89,6 +89,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(builder: (context) => MwIntro()));
                 })
           ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: getData,
+        tooltip: "Refresh",
+        child: Icon(Icons.refresh),
+        elevation: 2.0,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) => {},
+        currentIndex: 0,
+        items: [
+          new BottomNavigationBarItem(
+              icon: Icon(Icons.home), title: Text("Home")),
+          new BottomNavigationBarItem(
+              icon: Icon(Icons.person), title: Text("Person")),
+        ],
+      ),
       body: SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:icheon_job/constants.dart';
 import 'package:icheon_job/models/emp_job.dart';
 import 'package:icheon_job/screens/job_detail.dart';
-import 'package:icheon_job/size_config.dart';
 
 Widget JobCard(BuildContext context, EmpJob card, int index) {
   var title = card.emplmntTitle;
