@@ -5,10 +5,17 @@ import 'package:icheon_job/screens/job_detail.dart';
 Widget JobList(BuildContext context, EmpJob job, int index) {
   return ListTile(
     onTap: () {
-      Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => JobDetail(job: job,)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => JobDetail(
+                    job: job,
+                  )));
     },
-    title: Text("${job.companyNm}"),
+    title: Text(
+      "${job.companyNm}",
+      style: TextStyle(fontStyle: FontStyle.italic),
+    ),
     leading: Text("${job.joboffrCertfiyNo}"),
     subtitle: Text("${job.emplmntTitle}"),
   );
