@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Container(
-                      height: size.height * .31,
+                      height: 285,
                       width: size.width * .95,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
